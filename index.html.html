@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Kurslar Pro | Rus tili platformasi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #eef2ff;
+      color: #1f2937;
+      line-height: 1.7;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    .site {
+      min-height: 100vh;
+      transition: 0.3s ease;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .header-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 30px;
+      margin-bottom: 3px;
+    }
+
+    .logo p {
+      font-size: 13px;
+      opacity: 0.95;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .settings-panel {
+      background: white;
+      margin: 26px auto 0;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .settings-title {
+      font-size: 24px;
+      color: #1e3a8a;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .setting-box {
+      background: #f8fafc;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .setting-box h3 {
+      color: #2563eb;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .control-group label {
+      background: #e5edff;
+      color: #1e3a8a;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #bfd0ff;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .control-group label:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    #lang-uz:checked ~ .site .btn-uz,
+    #lang-ru:checked ~ .site .btn-ru,
+    #lang-en:checked ~ .site .btn-en,
+    #font-small:checked ~ .site .btn-small,
+    #font-medium:checked ~ .site .btn-medium,
+    #font-large:checked ~ .site .btn-large,
+    #theme-normal:checked ~ .site .btn-normal,
+    #theme-night:checked ~ .site .btn-night,
+    #theme-eye:checked ~ .site .btn-eye {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.24);
+    }
+
+    .hero {
+      padding: 70px 0 50px;
+    }
+
+    .hero-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      flex-wrap: wrap;
+    }
+
+    .hero-text,
+    .hero-image {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .hero h2 {
+      font-size: 44px;
+      line-height: 1.2;
+      color: #1e3a8a;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      margin-bottom: 22px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: 0.25s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      background: transparent;
+    }
+
+    .btn:hover,
+    .topic-link:hover,
+    .mini-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+      display: block;
+    }
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #1e3a8a;
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+      margin: 0 auto 38px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .grid-4,
+    .topics-grid,
+    .tests-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .topics-grid,
+    .tests-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: #2563eb;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .card p,
+    .card li {
+      color: #4b5563;
+    }
+
+    .feature-box {
+      border-left: 6px solid #2563eb;
+      background: #eff6ff;
+    }
+
+    .topic-link,
+    .mini-btn {
+      display: inline-block;
+      margin-top: 14px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .material-reader {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .language-content {
+      display: none;
+    }
+
+    #lang-uz:checked ~ .site .lang-uz,
+    #lang-ru:checked ~ .site .lang-ru,
+    #lang-en:checked ~ .site .lang-en {
+      display: block;
+    }
+
+    .language-content h3 {
+      color: #2563eb;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .language-content p {
+      margin-bottom: 14px;
+      color: inherit;
+    }
+
+    #font-small:checked ~ .site .material-reader,
+    #font-small:checked ~ .site #topics .language-content { font-size: 14px; }
+
+    #font-medium:checked ~ .site .material-reader,
+    #font-medium:checked ~ .site #topics .language-content { font-size: 18px; }
+
+    #font-large:checked ~ .site .material-reader,
+    #font-large:checked ~ .site #topics .language-content { font-size: 24px; }
+
+    .question-block {
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .question-block h4 {
+      color: #1d4ed8;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1f2937;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option-btn:hover {
+      background: #eff6ff;
+    }
+
+    .option-btn.correct {
+      background: #16a34a;
+      color: white;
+      border-color: #16a34a;
+    }
+
+    .option-btn.wrong {
+      background: #dc2626;
+      color: white;
+      border-color: #dc2626;
+    }
+
+    .answer-note {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #2563eb;
+      display: none;
+    }
+
+    .contact-box,
+    .form-box {
+      background: white;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .contact-box {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 2;
+    }
+
+    .form-box form {
+      display: grid;
+      gap: 14px;
+    }
+
+    select,
+    textarea,
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 34px 0;
+      margin-top: 30px;
+    }
+
+    .footer-links {
+      margin: 12px 0;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 14px;
+    }
+
+    /* Night Mode */
+    #theme-night:checked ~ .site {
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+
+    #theme-night:checked ~ .site .topbar {
+      background: #020617;
+    }
+
+    #theme-night:checked ~ .site header {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    #theme-night:checked ~ .site .settings-panel,
+    #theme-night:checked ~ .site .card,
+    #theme-night:checked ~ .site .material-reader,
+    #theme-night:checked ~ .site .question-block,
+    #theme-night:checked ~ .site .contact-box,
+    #theme-night:checked ~ .site .form-box {
+      background: #111827;
+      color: #f3f4f6;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    #theme-night:checked ~ .site .setting-box,
+    #theme-night:checked ~ .site .option-btn,
+    #theme-night:checked ~ .site select,
+    #theme-night:checked ~ .site textarea,
+    #theme-night:checked ~ .site input[type="text"],
+    #theme-night:checked ~ .site input[type="email"],
+    #theme-night:checked ~ .site input[type="file"] {
+      background: #1f2937;
+      border-color: #334155;
+      color: #f3f4f6;
+    }
+
+    #theme-night:checked ~ .site .section-title,
+    #theme-night:checked ~ .site .settings-title,
+    #theme-night:checked ~ .site .language-content h3,
+    #theme-night:checked ~ .site .card h3,
+    #theme-night:checked ~ .site .question-block h4,
+    #theme-night:checked ~ .site .logo h1,
+    #theme-night:checked ~ .site .hero h2 {
+      color: #93c5fd;
+    }
+
+    #theme-night:checked ~ .site .section-subtitle,
+    #theme-night:checked ~ .site .hero p,
+    #theme-night:checked ~ .site .card p,
+    #theme-night:checked ~ .site .card li,
+    #theme-night:checked ~ .site .logo p {
+      color: #cbd5e1;
+    }
+
+    #theme-night:checked ~ .site .control-group label {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    /* Eye Mode */
+    #theme-eye:checked ~ .site {
+      background: #f5f0e6;
+      color: #3b3228;
+    }
+
+    #theme-eye:checked ~ .site .topbar {
+      background: #8b5e34;
+    }
+
+    #theme-eye:checked ~ .site header {
+      background: linear-gradient(135deg, #b08968, #8d6e63);
+    }
+
+    #theme-eye:checked ~ .site .settings-panel,
+    #theme-eye:checked ~ .site .card,
+    #theme-eye:checked ~ .site .material-reader,
+    #theme-eye:checked ~ .site .question-block,
+    #theme-eye:checked ~ .site .contact-box,
+    #theme-eye:checked ~ .site .form-box {
+      background: #fffaf0;
+      color: #3b3228;
+    }
+
+    #theme-eye:checked ~ .site .setting-box,
+    #theme-eye:checked ~ .site .option-btn,
+    #theme-eye:checked ~ .site select,
+    #theme-eye:checked ~ .site textarea,
+    #theme-eye:checked ~ .site input[type="text"],
+    #theme-eye:checked ~ .site input[type="email"],
+    #theme-eye:checked ~ .site input[type="file"] {
+      background: #f7ecd4;
+      border-color: #d9c39f;
+      color: #4b3a26;
+    }
+
+    #theme-eye:checked ~ .site .section-title,
+    #theme-eye:checked ~ .site .settings-title,
+    #theme-eye:checked ~ .site .language-content h3,
+    #theme-eye:checked ~ .site .card h3,
+    #theme-eye:checked ~ .site .question-block h4,
+    #theme-eye:checked ~ .site .hero h2 {
+      color: #8b5e34;
+    }
+
+    #theme-eye:checked ~ .site .section-subtitle,
+    #theme-eye:checked ~ .site .hero p,
+    #theme-eye:checked ~ .site .card p,
+    #theme-eye:checked ~ .site .card li {
+      color: #5f4b32;
+    }
+
+    #theme-eye:checked ~ .site .control-group label {
+      background: #efe3c2;
+      color: #4b3a26;
+      border-color: #d6bc84;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 34px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .settings-title {
+        font-size: 21px;
+      }
+
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <input type="radio" name="language" id="lang-uz" checked>
+  <input type="radio" name="language" id="lang-ru">
+  <input type="radio" name="language" id="lang-en">
+
+  <input type="radio" name="fontsize" id="font-small">
+  <input type="radio" name="fontsize" id="font-medium" checked>
+  <input type="radio" name="fontsize" id="font-large">
+
+  <input type="radio" name="theme" id="theme-normal" checked>
+  <input type="radio" name="theme" id="theme-night">
+  <input type="radio" name="theme" id="theme-eye">
+
+  <div class="site">
+    <div class="topbar">
+      Pro versiya: 3 til | Shrift boshqaruvi | Kechki rejim | Ko‘z uchun yumshoq rejim
+    </div>
+
+    <header>
+      <div class="container header-wrap">
+        <div class="logo">
+          <h1>Online Kurslar</h1>
+          <p>Rus tilini o‘rganish uchun zamonaviy ta’lim platformasi</p>
+        </div>
+        <nav>
+          <a href="#home">Bosh sahifa</a>
+          <a href="#topics">Mavzular</a>
+          <a href="#reader">O‘quv qo‘llanma</a>
+          <a href="#tests">Testlar</a>
+          <a href="#upload">Yuklash</a>
+          <a href="#contact">Aloqa</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="settings-panel">
+        <h2 class="settings-title">O‘qish boshqaruv paneli</h2>
+        <div class="settings-grid">
+          <div class="setting-box">
+            <h3>Tilni tanlang</h3>
+            <div class="control-group">
+              <label for="lang-uz" class="btn-uz">O‘zbekcha</label>
+              <label for="lang-ru" class="btn-ru">Русский</label>
+              <label for="lang-en" class="btn-en">English</label>
+            </div>
+          </div>
+
+          <div class="setting-box">
+            <h3>Shrift o‘lchami</h3>
+            <div class="control-group">
+              <label for="font-small" class="btn-small">Kichik</label>
+              <label for="font-medium" class="btn-medium">O‘rta</label>
+              <label for="font-large" class="btn-large">Katta</label>
+            </div>
+          </div>
+
+          <div class="setting-box">
+            <h3>O‘qish rejimi</h3>
+            <div class="control-group">
+              <label for="theme-normal" class="btn-normal">Oddiy</label>
+              <label for="theme-night" class="btn-night">Kechki</label>
+              <label for="theme-eye" class="btn-eye">Ko‘z uchun</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-wrap">
+          <div class="hero-text">
+            <span class="hero-badge">Rus tili platformasi • Pro versiya</span>
+            <h2>Rus tilini qulay, chiroyli va boshqariladigan formatda o‘rganing</h2>
+            <p>
+              Bu saytda foydalanuvchi mavzularni tanlaydi, test ishlaydi, o‘quv qo‘llanmani 3 tilda o‘qiydi,
+              shrift o‘lchamini o‘zgartiradi va o‘qish rejimini tanlaydi.
+            </p>
+            <div class="hero-buttons">
+              <a href="#reader" class="btn btn-primary">Qo‘llanmani o‘qish</a>
+              <a href="#tests" class="btn btn-secondary">Testlarga o‘tish</a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1000&q=80" alt="Rus tilini o‘rganish">
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <h2 class="section-title">Platforma imkoniyatlari</h2>
+          <p class="section-subtitle">
+            Sayt foydalanuvchi uchun qulay boshqaruv va o‘qish imkoniyatlari bilan yaratilgan.
+          </p>
+          <div class="grid-4">
+            <div class="card feature-box">
+              <h3>3 tilda o‘qish</h3>
+              <p>Matnni O‘zbekcha, Русский va English tugmalari orqali bir zumda almashtirish mumkin.</p>
+            </div>
+            <div class="card feature-box">
+              <h3>Shrift boshqaruvi</h3>
+              <p>Kichik, o‘rta yoki katta shrift tanlab, o‘qishni qulaylashtirish mumkin.</p>
+            </div>
+            <div class="card feature-box">
+              <h3>Reading mode</h3>
+              <p>Oddiy, kechki yoki ko‘z uchun yumshoq rejim orqali matnni o‘qish osonlashadi.</p>
+            </div>
+            <div class="card feature-box">
+              <h3>Online testlar</h3>
+              <p>Savolga bosilganda to‘g‘ri yoki noto‘g‘ri javob darhol ko‘rinadi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="topics">
+        <div class="container">
+          <h2 class="section-title">Mavzular / Темы / Topics</h2>
+
+          <div class="card language-content lang-uz">
+            <p class="section-subtitle">Rus tilini bosqichma-bosqich o‘rganish uchun quyidagi 40 ta mavzu kiritildi.</p>
+            <h3>I. Основы и Фонетика (Asoslar)</h3>
+            <p>1. Русский алфавит и звуки (Alfavit va tovushlar).</p>
+            <p>2. Правила ударения и интонация (Urg‘u va intonatsiya).</p>
+            <p>3. Гласные и согласные (Unli va undoshlar: qattiq/yumshoq, jarangli/jarangsiz).</p>
+            <h3 style="margin-top:18px;">II. Морфология: Имена и Местоимения</h3>
+            <p>4. Род имён существительных (Otlarning jinsi).</p>
+            <p>5. Множественное число существительных (Otlarning ko‘plik shakli).</p>
+            <p>6. Личные местоимения (Kishilik olmoshlari).</p>
+            <p>7. Притяжательные местоимения (Egalik olmoshlari).</p>
+            <p>8. Имена прилагательные (Sifatlar).</p>
+            <p>9. Наречия (Ravishlar).</p>
+            <p>10. Числительные: количественные и порядковые (Sanoq va tartib sonlar).</p>
+            <h3 style="margin-top:18px;">III. Система падежей</h3>
+            <p>11. Именительный падеж.</p>
+            <p>12. Предложный падеж.</p>
+            <p>13. Винительный падеж.</p>
+            <p>14. Родительный падеж.</p>
+            <p>15. Дательный падеж.</p>
+            <p>16. Творительный падеж.</p>
+            <h3 style="margin-top:18px;">IV. Глаголы и времена</h3>
+            <p>17. Инфинитив и настоящее время.</p>
+            <p>18. I и II спряжение глаголов.</p>
+            <p>19. Прошедшее время глаголов.</p>
+            <p>20. Будущее время: простое и сложное.</p>
+            <p>21. Виды глагола: совершенный и несовершенный.</p>
+            <p>22. Повелительное наклонение.</p>
+            <p>23. Сослагательное наклонение.</p>
+            <h3 style="margin-top:18px;">V. Глаголы движения и приставки</h3>
+            <p>24. Глаголы движения без приставок.</p>
+            <p>25. Глаголы движения с приставками.</p>
+            <p>26. Возвратные глаголы.</p>
+            <h3 style="margin-top:18px;">VI. Продвинутая грамматика</h3>
+            <p>27. Причастие: активное и пассивное.</p>
+            <p>28. Деепричастие.</p>
+            <p>29. Пассивный залог.</p>
+            <p>30. Глагольное управление.</p>
+            <p>31. Безличные предложения.</p>
+            <p>32. Степени сравнения прилагательных и наречий.</p>
+            <h3 style="margin-top:18px;">VII. Лексика и коммуникация</h3>
+            <p>33. Знакомство и приветствие.</p>
+            <p>34. Семья и описание внешности.</p>
+            <p>35. Работа, профессии и резюме.</p>
+            <p>36. Ориентация в городе и транспорт.</p>
+            <p>37. Здоровье и медицина.</p>
+            <p>38. Еда, покупки и ресторан.</p>
+            <h3 style="margin-top:18px;">VIII. Стилистика и синтаксис</h3>
+            <p>39. Сложноподчинённые предложения.</p>
+            <p>40. Фразеологизмы и устойчивые выражения.</p>
+          </div>
+
+          <div class="card language-content lang-ru">
+            <p class="section-subtitle">Ниже представлены 40 тем для поэтапного изучения русского языка.</p>
+            <h3>I. Основы и Фонетика</h3>
+            <p>1. Русский алфавит и звуки.</p>
+            <p>2. Правила ударения и интонация.</p>
+            <p>3. Гласные и согласные.</p>
+            <h3 style="margin-top:18px;">II. Морфология: Имена и Местоимения</h3>
+            <p>4. Род имён существительных.</p>
+            <p>5. Множественное число существительных.</p>
+            <p>6. Личные местоимения.</p>
+            <p>7. Притяжательные местоимения.</p>
+            <p>8. Имена прилагательные.</p>
+            <p>9. Наречия.</p>
+            <p>10. Числительные: количественные и порядковые.</p>
+            <h3 style="margin-top:18px;">III. Система падежей</h3>
+            <p>11. Именительный падеж.</p>
+            <p>12. Предложный падеж.</p>
+            <p>13. Винительный падеж.</p>
+            <p>14. Родительный падеж.</p>
+            <p>15. Дательный падеж.</p>
+            <p>16. Творительный падеж.</p>
+            <h3 style="margin-top:18px;">IV. Глаголы и времена</h3>
+            <p>17. Инфинитив и настоящее время.</p>
+            <p>18. I и II спряжение глаголов.</p>
+            <p>19. Прошедшее время глаголов.</p>
+            <p>20. Будущее время: простое и сложное.</p>
+            <p>21. Виды глагола: совершенный и несовершенный.</p>
+            <p>22. Повелительное наклонение.</p>
+            <p>23. Сослагательное наклонение.</p>
+            <h3 style="margin-top:18px;">V. Глаголы движения и приставки</h3>
+            <p>24. Глаголы движения без приставок.</p>
+            <p>25. Глаголы движения с приставками.</p>
+            <p>26. Возвратные глаголы.</p>
+            <h3 style="margin-top:18px;">VI. Продвинутая грамматика</h3>
+            <p>27. Причастие: активное и пассивное.</p>
+            <p>28. Деепричастие.</p>
+            <p>29. Пассивный залог.</p>
+            <p>30. Глагольное управление.</p>
+            <p>31. Безличные предложения.</p>
+            <p>32. Степени сравнения прилагательных и наречий.</p>
+            <h3 style="margin-top:18px;">VII. Лексика и коммуникация</h3>
+            <p>33. Знакомство и приветствие.</p>
+            <p>34. Семья и описание внешности.</p>
+            <p>35. Работа, профессии и резюме.</p>
+            <p>36. Ориентация в городе и транспорт.</p>
+            <p>37. Здоровье и медицина.</p>
+            <p>38. Еда, покупки и ресторан.</p>
+            <h3 style="margin-top:18px;">VIII. Стилистика и синтаксис</h3>
+            <p>39. Сложноподчинённые предложения.</p>
+            <p>40. Фразеологизмы и устойчивые выражения.</p>
+          </div>
+
+          <div class="card language-content lang-en">
+            <p class="section-subtitle">Below are 40 topics for step-by-step study of the Russian language.</p>
+            <h3>I. Basics and Phonetics</h3>
+            <p>1. Russian alphabet and sounds.</p>
+            <p>2. Stress and intonation rules.</p>
+            <p>3. Vowels and consonants.</p>
+            <h3 style="margin-top:18px;">II. Morphology: Nouns and Pronouns</h3>
+            <p>4. Gender of nouns.</p>
+            <p>5. Plural forms of nouns.</p>
+            <p>6. Personal pronouns.</p>
+            <p>7. Possessive pronouns.</p>
+            <p>8. Adjectives.</p>
+            <p>9. Adverbs.</p>
+            <p>10. Cardinal and ordinal numerals.</p>
+            <h3 style="margin-top:18px;">III. Case System</h3>
+            <p>11. Nominative case.</p>
+            <p>12. Prepositional case.</p>
+            <p>13. Accusative case.</p>
+            <p>14. Genitive case.</p>
+            <p>15. Dative case.</p>
+            <p>16. Instrumental case.</p>
+            <h3 style="margin-top:18px;">IV. Verbs and Tenses</h3>
+            <p>17. Infinitive and present tense.</p>
+            <p>18. I and II verb conjugation.</p>
+            <p>19. Past tense of verbs.</p>
+            <p>20. Future tense: simple and compound.</p>
+            <p>21. Verb aspects: perfective and imperfective.</p>
+            <p>22. Imperative mood.</p>
+            <p>23. Conditional mood.</p>
+            <h3 style="margin-top:18px;">V. Verbs of Motion and Prefixes</h3>
+            <p>24. Verbs of motion without prefixes.</p>
+            <p>25. Verbs of motion with prefixes.</p>
+            <p>26. Reflexive verbs.</p>
+            <h3 style="margin-top:18px;">VI. Advanced Grammar</h3>
+            <p>27. Participles: active and passive.</p>
+            <p>28. Gerunds.</p>
+            <p>29. Passive voice.</p>
+            <p>30. Verb government.</p>
+            <p>31. Impersonal sentences.</p>
+            <p>32. Degrees of comparison of adjectives and adverbs.</p>
+            <h3 style="margin-top:18px;">VII. Vocabulary and Communication</h3>
+            <p>33. Introduction and greetings.</p>
+            <p>34. Family and appearance.</p>
+            <p>35. Work, professions and CV.</p>
+            <p>36. City orientation and transport.</p>
+            <p>37. Health and medicine.</p>
+            <p>38. Food, shopping and restaurant.</p>
+            <h3 style="margin-top:18px;">VIII. Stylistics and Syntax</h3>
+            <p>39. Complex subordinate clauses.</p>
+            <p>40. Phraseological units and fixed expressions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="reader">
+        <div class="container">
+          <h2 class="section-title">O‘quv qo‘llanma</h2>
+          <p class="section-subtitle">
+            Quyidagi matn tugmalar orqali 3 tilda o‘zgaradi. Shrift va o‘qish rejimi ham shu sahifada ishlaydi.
+          </p>
+
+          <div class="material-reader">
+            <div class="language-content lang-uz">
+              <h3>Rus tili grammatikasi haqida</h3>
+              <p>Rus tilida ot, sifat, fe’l va olmoshlar muhim o‘rin tutadi. Har bir so‘z turkumi gap ichida o‘z vazifasiga ega bo‘ladi.</p>
+              <p>Kelishiklar tizimi rus tilining asosiy qismlaridan biri hisoblanadi. So‘zning gapdagi vazifasiga qarab uning shakli o‘zgaradi.</p>
+              <p>Bu platforma orqali siz mavzularni tanlab, ularni qulay rejimda o‘qishingiz va testlarni ishlashingiz mumkin.</p>
+            </div>
+
+            <div class="language-content lang-ru">
+              <h3>О грамматике русского языка</h3>
+              <p>В русском языке важную роль играют существительные, прилагательные, глаголы и местоимения. Каждая часть речи выполняет свою функцию в предложении.</p>
+              <p>Система падежей считается одной из основных частей русского языка. Форма слова изменяется в зависимости от его роли в предложении.</p>
+              <p>С помощью этой платформы вы можете выбирать темы, читать материалы в удобном режиме и проходить тесты.</p>
+            </div>
+
+            <div class="language-content lang-en">
+              <h3>About Russian grammar</h3>
+              <p>In Russian, nouns, adjectives, verbs, and pronouns play an important role. Each part of speech has its own function in a sentence.</p>
+              <p>The case system is one of the key parts of the Russian language. The form of a word changes depending on its role in the sentence.</p>
+              <p>With this platform, you can choose topics, read materials in a comfortable mode, and solve tests.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tests">
+        <div class="container">
+          <h2 class="section-title">Online testlar</h2>
+          <p class="section-subtitle">Savolni tanlang va darhol natijani ko‘ring.</p>
+          <div id="quiz"></div>
+        </div>
+      </section>
+
+      <section id="upload">
+        <div class="container">
+          <h2 class="section-title">Testlar va materiallarni yuklash</h2>
+          <p class="section-subtitle">Foydalanuvchilar o‘z test fayllari, savollar to‘plami yoki o‘quv materiallarini yuklashlari mumkin.</p>
+          <div class="form-box">
+            <form>
+              <select required>
+                <option value="">Mavzuni tanlang</option>
+                <option>Alifbo va talaffuz</option>
+                <option>Grammatika</option>
+                <option>Lug‘at boyligi</option>
+                <option>Dialog va suhbat</option>
+                <option>Imtihon tayyorgarligi</option>
+              </select>
+              <textarea placeholder="Yuklangan test yoki material haqida qisqacha izoh yozing"></textarea>
+              <button type="submit">Yuklash</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <h2 class="section-title">Aloqa</h2>
+          <p class="section-subtitle">Savollar bo‘lsa, quyidagi aloqa ma’lumotlari orqali bog‘lanishingiz mumkin.</p>
+          <div class="contact-box">
+            👤 Shermuxammatov Bahromjon<br>
+            📞 +998992272312<br>
+            📧 bahrombek.2312@gmail.com
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p><strong>Online Kurslar Pro</strong> — Rus tili ta’lim platformasi</p>
+        <div class="footer-links">
+          <a href="#home">Bosh sahifa</a>
+          <a href="#reader">Qo‘llanma</a>
+          <a href="#tests">Testlar</a>
+          <a href="#contact">Aloqa</a>
+        </div>
+        <p>© 2026 Barcha huquqlar himoyalangan.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const questions = [
+      "В каком слове буква «е» обозначает два звука?",
+      "В каком слове буква «я» обозначает один звук?",
+      "В каком слове есть непроизносимый согласный?",
+      "В каком слове все согласные мягкие?",
+      "В каком слове есть только звонкие согласные?",
+      "В каком слове есть оглушение согласного на конце?",
+      "В каком слове есть ассимиляция по глухости?",
+      "В каком слове буква «ё» обязательна?",
+      "В каком слове есть разделительный твёрдый знак?",
+      "В каком слове есть разделительный мягкий знак?",
+      "В каком слове происходит редукция гласного?",
+      "В каком слове есть йотированный звук?",
+      "В каком слове количество букв и звуков не совпадает?",
+      "В каком слове все согласные твёрдые?",
+      "В каком слове есть чередование согласных?",
+
+      "В каком слове ударение падает на второй слог?",
+      "В каком слове ударение указано неверно?",
+      "В каком слове ударение подвижное?",
+      "В каком слове изменение ударения меняет значение?",
+      "В каком предложении вопросительная интонация?",
+      "В каком слове возможны два варианта ударения?",
+      "В каком слове ударение нормативное?",
+      "В каком слове ударение падает на последний слог?",
+      "В каком слове ударение не фиксировано?",
+      "В каком слове ударение падает на приставку?",
+      "В каком предложении правильная интонация перечисления?",
+      "В каком слове ударение зависит от формы?",
+      "В каком слове ударение падает на корень?",
+      "В каком слове ударение на окончание?",
+      "В каком слове ударение неправильное?",
+
+      "В каком ряду все согласные глухие?",
+      "В каком слове есть мягкий согласный?",
+      "В каком слове есть твёрдый согласный?",
+      "В каком слове есть парный по глухости согласный?",
+      "В каком слове есть непарный согласный?",
+      "В каком слове есть шипящий согласный?",
+      "В каком слове есть свистящий согласный?",
+      "В каком слове есть сонорный звук?",
+      "В каком слове есть твёрдый и мягкий согласный одновременно?",
+      "В каком слове есть только мягкие согласные?",
+      "В каком слове есть ассимиляция?",
+      "В каком слове есть редукция гласных?",
+      "В каком слове есть долгий звук?",
+      "В каком слове есть удвоенный согласный?",
+      "В каком слове есть непарный по звонкости согласный?"
+    ];
+
+    const answers = [
+      "A","B","A","C","A","B","C","A","A","C","A","A","D","A","A",
+      "B","A","B","A","B","A","A","A","A","A","A","A","A","A","A",
+      "C","A","A","A","A","A","A","B","A","A","A","A","B","A","A"
+    ];
+
+    const options = [
+      ["лес","мел","ель","день"],
+      ["яблоко","семья","яма","язык"],
+      ["солнце","дом","лес","книга"],
+      ["день","тень","дети","мир"],
+      ["дом","зуб","год","дым"],
+      ["дуб","вода","окно","мама"],
+      ["сказка","дом","окно","рука"],
+      ["все","елка","все-таки","мел"],
+      ["съезд","семья","пьеса","вьюга"],
+      ["съёмка","семья","подъезд","объект"],
+      ["молоко","дом","лес","парк"],
+      ["юг","дом","кот","лес"],
+      ["ёж","дом","лес","кот"],
+      ["стол","день","семья","тень"],
+      ["рука – ручка","дом – дома","лес – леса","кот – коты"],
+
+      ["звонит","торты","красивее","свекла"],
+      ["звонИт","каталОг","дОговор","жалюзИ"],
+      ["вода","стол","дом","лес"],
+      ["замок – замок","стол – столы","дом – дома","лес – леса"],
+      ["Ты идёшь домой.","Ты идёшь домой?","Ты идёшь домой!","Ты идёшь домой…"],
+      ["творог","дом","лес","кот"],
+      ["звОнит","звонИт","звонит","оба варианта"],
+      ["началА","нАчала","начал","нАчал"],
+      ["окно","язык","рука","вода"],
+      ["нАчал","пришёл","ушёл","зашёл"],
+      ["Он купил хлеб. молоко. сыр.","Он купил хлеб, молоко, сыр.","Он купил хлеб молоко сыр","Он купил хлеб — молоко — сыр"],
+      ["вода","руки","город","стол"],
+      ["подписание","договор","запись","перенос"],
+      ["рука","стол","лес","дом"],
+      ["красИвее","красивЕе","звонИт","каталОг"],
+
+      ["п, т, к","б, д, г","в, з, ж","л, м, н"],
+      ["стол","дом","день","кот"],
+      ["тень","день","мать","стол"],
+      ["б","м","л","й"],
+      ["ж","б","д","г"],
+      ["жук","дом","кот","лес"],
+      ["солнце","жук","шапка","чай"],
+      ["мама","папа","кот","ток"],
+      ["день","стол","дом","кот"],
+      ["семья","дом","стол","кот"],
+      ["просьба","дом","кот","лес"],
+      ["молоко","стол","дом","лес"],
+      ["ванна","дом","кот","лес"],
+      ["класс","дом","лес","кот"],
+      ["й","б","д","г"]
+    ];
+
+    const quiz = document.getElementById("quiz");
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question-block";
+
+      const title = document.createElement("h4");
+      title.textContent = `${i + 1}. ${q}`;
+      div.appendChild(title);
+
+      const note = document.createElement("div");
+      note.className = "answer-note";
+
+      options[i].forEach((opt, index) => {
+        const letter = ["A", "B", "C", "D"][index];
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.type = "button";
+        btn.textContent = `${letter}) ${opt}`;
+
+        btn.addEventListener("click", () => {
+          const allBtns = div.querySelectorAll(".option-btn");
+          if ([...allBtns].some(b => b.disabled)) return;
+
+          allBtns.forEach(b => b.disabled = true);
+
+          if (letter === answers[i]) {
+            btn.classList.add("correct");
+            btn.textContent += " ✔";
+            note.textContent = "To‘g‘ri javob!";
+          } else {
+            btn.classList.add("wrong");
+            btn.textContent += " ✖";
+            const correctIndex = ["A", "B", "C", "D"].indexOf(answers[i]);
+            allBtns[correctIndex].classList.add("correct");
+            allBtns[correctIndex].textContent += " ✔";
+            note.textContent = `To‘g‘ri javob: ${answers[i]}`;
+          }
+
+          note.style.display = "block";
+        });
+
+        div.appendChild(btn);
+      });
+
+      div.appendChild(note);
+      quiz.appendChild(div);
+    });
+  </script>
+</body>
+</html>
